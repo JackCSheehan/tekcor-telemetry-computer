@@ -3,7 +3,6 @@
 
 #define SD_PIN 12
 
-//#include "Ardunio.h"
 #include <string.h>
 #include <SPI.h>
 #include <SD.h>
