@@ -1,5 +1,6 @@
 #include "SDCardManager.h"
 #include "GPSManager.h"
+#include "BMPManager.h"
 #include "ErrorHandler.h"
 #include "constants.h"
 
