@@ -7,7 +7,7 @@ SDCardManager::~SDCardManager() {
 // Initializes SD card. Returns 0 if there's an error
 bool SDCardManager::init() {
     // Initialize SD card
-    if (!SD.begin(SD_PIN)) {
+    if (!SD.begin(constants::SD_PIN)) {
         return false;
     }
 
@@ -17,7 +17,7 @@ bool SDCardManager::init() {
     // Return error if file has error
     if (telem) {
         // Write header of CSV
-        telem.println("time,temp,alt,pres,vel,accel,lat,lon");
+        telem.println("time,temp,alt,pres,vel,lat,lon");
         return true;
     } else {
         return false;
@@ -25,6 +25,13 @@ bool SDCardManager::init() {
 }
 
 // Writes a record to the file
-void SDCardManager::write(int time, double temp, double alt, double pres, double vel, double accel, double lat, double lon) {
-    telem.println("");
+void SDCardManager::write(GPSData gpsData, BMPData bmpData) {
+    telem.print("0,");
+
+    telem.print(bmpData.temp); telem.print(",");
+    telem.print(gpsData.alt); telem.print(",");
+    telem.print(bmpData.pres); telem.print(",");
+    telem.print(gpsData.vel); telem.print(",");
+    telem.print(gpsData.lat); telem.print(",");
+    telem.print(gpsData.lat); telem.print(",");
 }

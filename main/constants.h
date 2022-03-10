@@ -3,6 +3,7 @@
 
 namespace constants {
     static const int BAUD = 9600;
+    static const int SD_PIN = 12;
 
     // Pins for error LEDs
     static const int SD_ERROR_PIN = 0;

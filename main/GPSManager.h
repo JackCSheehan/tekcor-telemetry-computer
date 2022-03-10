@@ -6,7 +6,7 @@
 #include "constants.h"
 
 // Struct to contain position data received from GPS at a particular time
-struct PosTime {
+struct GPSData {
     // Position
     double lat;
     double lon;
@@ -17,6 +17,9 @@ struct PosTime {
     int min;
     int sec;
     int cent;
+
+    // Velocity
+    double vel;
 };
 
 // Class to manage reading of GPS data
@@ -29,7 +32,7 @@ public:
     ~GPSManager(){}
 
     void init();
-    PosTime readPosTime();
+    GPSData readData();
     uint32_t charsProcessed() { return gps.charsProcessed(); }
     
 };

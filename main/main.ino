@@ -9,22 +9,22 @@ GPSManager gpsManager;
 BMPManager bmpManager;
 ErrorHandler errorHandler;
 
-// Prints values in given PresTemp and PosTime structs
-void debug(PosTime posTime, PresTemp presTemp) {
+// Prints values in given BMPData and GPSData structs
+void debug(GPSData gpsData, BMPData bmpData) {
     Serial.print("LAT : ");
-    Serial.println(posTime.lat);
+    Serial.println(gpsData.lat);
 
     Serial.print("LON : ");
-    Serial.println(posTime.lon);
+    Serial.println(gpsData.lon);
 
     Serial.print("ALT : ");
-    Serial.println(posTime.alt);
+    Serial.println(gpsData.alt);
 
     Serial.print("PRES : ");
-    Serial.println(presTemp.pres);
+    Serial.println(bmpData.pres);
 
     Serial.print("TEMP : ");
-    Serial.println(presTemp.temp);
+    Serial.println(bmpData.temp);
 }
 
 void setup() {
@@ -53,12 +53,11 @@ void setup() {
     if (errorHandler.isAnyError()) {
         errorHandler.abort();
     }
-
 }
 
 void loop() {
-    PosTime posTime = gpsManager.readPosTime();
-    PresTemp presTemp = bmpManager.readPresTemp();
-    debug(posTime, presTemp);
-    sdCardManager.write(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    GPSData gpsData = gpsManager.readData();
+    BMPData bmpData = bmpManager.readData();
+    debug(gpsData, bmpData);
+    sdCardManager.write(gpsData, bmpData);
 }

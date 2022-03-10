@@ -5,9 +5,9 @@ bool BMPManager::init() {
     return bmp.begin();
 }
 
-// Reads pres, temp returns as PresTemp struct
-PresTemp BMPManager::readPresTemp() {
-    PresTemp presTemp = {
+// Reads pres, temp returns as BMPData struct
+BMPData BMPManager::readData() {
+    BMPData presTemp = {
         bmp.readPressure(),
         bmp.readTemperature()
     };

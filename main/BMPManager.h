@@ -5,7 +5,7 @@
 #include <Wire.h>
 
 // Struct to hold pressure and temp data
-struct PresTemp {
+struct BMPData {
     double pres;
     double temp;
 };
@@ -19,7 +19,7 @@ public:
     ~BMPManager(){}
 
     bool init();
-    PresTemp readPresTemp();
+    BMPData readData();
 };
 
 #endif
