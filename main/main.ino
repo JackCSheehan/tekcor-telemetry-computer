@@ -6,7 +6,26 @@
 
 SDCardManager sdCardManager;
 GPSManager gpsManager;
+BMPManager bmpManager;
 ErrorHandler errorHandler;
+
+// Prints values in given PresTemp and PosTime structs
+void debug(PosTime posTime, PresTemp presTemp) {
+    Serial.print("LAT : ");
+    Serial.println(posTime.lat);
+
+    Serial.print("LON : ");
+    Serial.println(posTime.lon);
+
+    Serial.print("ALT : ");
+    Serial.println(posTime.alt);
+
+    Serial.print("PRES : ");
+    Serial.println(presTemp.pres);
+
+    Serial.print("TEMP : ");
+    Serial.println(presTemp.temp);
+}
 
 void setup() {
     // Initialize error LEDs
@@ -27,6 +46,10 @@ void setup() {
         errorHandler.triggerGPSError();
     }
 
+    if (!bmpManager.init()) {
+        errorHandler.triggerBMPError();
+    }
+
     if (errorHandler.isAnyError()) {
         errorHandler.abort();
     }
@@ -34,6 +57,8 @@ void setup() {
 }
 
 void loop() {
-    gpsManager.readPosTime();
+    PosTime posTime = gpsManager.readPosTime();
+    PresTemp presTemp = bmpManager.readPresTemp();
+    debug(posTime, presTemp);
     sdCardManager.write(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 }
